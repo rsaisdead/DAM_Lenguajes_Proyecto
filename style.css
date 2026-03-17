@@ -1,0 +1,46 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #e8f5e9;
+}
+
+button {
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+#campo {
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.parcela {
+    width: 80px;
+    height: 80px;
+    background: #8d6e63;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.vacio {
+    background: #8d6e63;
+}
+
+.plantado {
+    background: #66bb6a;
+}
+
+.maduro {
+    background: #ffca28;
+}

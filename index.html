@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Juego de Granja</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <div id="menu">
+            <h1>Juego de Granja</h1>
+
+            <button onclick="nuevaPartida()">Nueva Partida</button>
+            <a href="https://github.com/rsaisdead/DAM_Lenguajes_Proyecto" target="_blank">
+                <button>Repositorio GitHub</button>
+            </a>
+        </div>
+
+        <div id="config" class="hidden">
+            <h2>Configurar partida</h2>
+
+            <label>Nombre del granjero</label>
+            <input id="nombre" />
+
+            <label>Nombre de la granja</label>
+            <input id="granja" />
+
+            <label>Dificultad</label>
+            <select id="dificultad">
+                <option value="facil">Facil</option>
+                <option value="normal">Normal</option>
+                <option value="dificil">Dificil</option>
+            </select>
+
+            <button onclick="crearPartida()">Comenzar</button>
+        </div>
+
+        <div id="juego" class="hidden">
+            <div id="infoJugador">
+                <p id="infoNombre"></p>
+                <p id="infoDinero"></p>
+            </div>
+
+            <h3>Inventario</h3>
+            <div id="inventario"></div>
+
+            <h3>Terreno</h3>
+
+            <div id="campo"></div>
+
+            <button onclick="irTienda()">Ir a la tienda</button>
+
+            <button onclick="eliminarPartida()">Eliminar Partida</button>
+        </div>
+
+        <script src="gameData.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

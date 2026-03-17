@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tienda</title>
+
+        <link rel="stylesheet" href="tienda.css" />
+    </head>
+
+    <body>
+        <h1>Tienda de semillas</h1>
+
+        <div id="dinero"></div>
+
+        <div id="tienda">
+            <div class="item">
+                <h3>Semillas de Trigo</h3>
+                <p>Precio: 10</p>
+                <button onclick="comprar('trigo', 10)">Comprar</button>
+            </div>
+
+            <div class="item">
+                <h3>Semillas de Maíz</h3>
+                <p>Precio: 20</p>
+                <button onclick="comprar('maiz', 20)">Comprar</button>
+            </div>
+        </div>
+
+        <button onclick="volver()">Volver a la granja</button>
+
+        <script src="gameData.js"></script>
+        <script src="tienda.js"></script>
+    </body>
+</html>
