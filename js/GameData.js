@@ -30,4 +30,10 @@ export default class GameData {
             location.reload();
         }
     }
+
+    static existeGuardado() {
+        let data = localStorage.getItem("granjaSave");
+        if (data) return true;
+        return false
+    }
 }

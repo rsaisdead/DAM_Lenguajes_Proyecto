@@ -12,6 +12,10 @@ function mostrar(id) {
 }
 
 function nuevaPartida() {
+    if (GameData.existeGuardado() && !confirm("Crear otra partida borrara la anterior, esta seguro?")) {
+        return;
+    }
+
     mostrar("config");
 }
 
