@@ -2,28 +2,33 @@ export default class GameData {
     static cargarJuego() {
         let data = localStorage.getItem("granjaSave");
         if (!data) return null;
-        return JSON.parse(data);
+        try {
+            return JSON.parse(data);
+        } catch (e) {
+            console.error("Error al parsear datos guardados", e);
+            return null;
+        }
     }
 
-    static guardarJuego(juego) {
-        localStorage.setItem("granjaSave", JSON.stringify(juego));
+    static guardarJuego(data) {
+        localStorage.setItem("granjaSave", JSON.stringify(data));
     }
 
     static actualizarDineroUI() {
-        let juego = cargarJuego();
-        if (!juego) return;
+        let data = this.cargarJuego();
+        if (!data) return;
 
         let dineroUI = document.getElementById("infoDinero");
         if (dineroUI) {
-            dineroUI.innerText = "Dinero: " + juego.dinero;
+            dineroUI.innerText = "Dinero: " + data.dinero;
         }
     }
 
     static eliminarPartida() {
-        localStorage.removeItem("granjaSave");
-
-        alert("Partida eliminada");
-
-        location.reload();
+        if (confirm("seguro de que quieres borrar tu granja?")) {
+            localStorage.removeItem("granjaSave");
+            alert("Partida eliminada");
+            location.reload();
+        }
     }
 }

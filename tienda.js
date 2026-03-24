@@ -1,9 +1,10 @@
-import GameData from "./js/GameData";
+import GameData from "./js/GameData.js";
+import Juego from "./js/Juego.js";
 
 let juego = null;
 
 function cargar() {
-    juego = GameData.cargarJuego();
+    juego = new Juego(GameData.cargarJuego());
 
     if (!juego) {
         alert("No hay partida");
@@ -32,7 +33,10 @@ function comprar(tipo, precio) {
 }
 
 function volver() {
+    juego.guardar();
     location.href = "index.html";
 }
 
-window.onload = cargar;
+window.comprar = comprar;
+window.volver = volver;
+cargar();

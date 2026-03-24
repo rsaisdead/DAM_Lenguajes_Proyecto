@@ -8,7 +8,6 @@ function mostrar(id) {
     document.getElementById("menu").classList.add("hidden");
     document.getElementById("config").classList.add("hidden");
     document.getElementById("juego").classList.add("hidden");
-
     document.getElementById(id).classList.remove("hidden");
 }
 
@@ -37,25 +36,24 @@ function crearPartida() {
     };
 
     juego = new Juego(data);
-
     juego.guardar();
-
     iniciarJuego();
 }
 
 function iniciarJuego() {
     mostrar("juego");
 
-    document.getElementById("infoNombre").innerText =
-        "Granjero: " + juego.nombre;
-
-    document.getElementById("infoDinero").innerText =
-        "Dinero: " + juego.dinero;
-
+    document.getElementById("infoNombre").innerText = "Granjero: " + juego.nombre;
+    actualizarInterfazDinero();
     renderInventario();
     renderCampo();
 
-    setInterval(actualizarCultivos, 250);
+    if (window.gameInterval) clearInterval(window.gameInterval);
+    window.gameInterval = setInterval(actualizarCultivos, 1000);
+}
+
+function actualizarInterfazDinero() {
+    document.getElementById("infoDinero").innerText = "Dinero: " + juego.dinero;
 }
 
 function actualizarCultivos() {
@@ -65,18 +63,21 @@ function actualizarCultivos() {
 function renderInventario() {
     let inv = document.getElementById("inventario");
     if (!inv) return;
-
     inv.innerHTML = "";
 
     for (let semilla in juego.inventario) {
         let cantidad = juego.inventario[semilla];
-
         if (cantidad <= 0) continue;
 
         let btn = document.createElement("button");
-        btn.innerText = semilla + " (" + cantidad + ")";
-        btn.onclick = () => (semillaSeleccionada = semilla);
+        btn.innerText = `${semilla} (${cantidad})`;
 
+        if (semillaSeleccionada === semilla) btn.style.border = "2px solid yellow";
+        
+        btn.onclick = () => {
+            semillaSeleccionada = semilla;
+            renderInventario();
+        };
         inv.appendChild(btn);
     }
 }
@@ -91,39 +92,47 @@ function renderCampo() {
 
         if (!parcela) {
             div.classList.add("vacio");
-
             div.onclick = () => {
-                juego.plantar(i);
-                renderCampo();
-                renderInventario();
+                if (juego.plantar(i, semillaSeleccionada)) {
+                    renderCampo();
+                    renderInventario();
+                }
             };
-
         } else {
             if (parcela.estaMaduro()) {
-
                 div.classList.add("maduro");
-
+                div.innerText = "¡Listo!";
                 div.onclick = () => {
                     juego.recolectar(i);
+                    actualizarInterfazDinero();
                     renderCampo();
                 };
             } else {
                 div.classList.add("plantado");
-
                 div.innerText = parcela.tiempoRestante() + "s";
             }
-
         }
-
         campo.appendChild(div);
     });
 }
 
+function continuarPartida() {
+    const dataString = GameData.cargarJuego();
+    if (dataString) {
+        juego = new Juego(dataString);
+        iniciarJuego();
+    } else {
+        alert("No hay partida guardada");
+    }
+}
+
 function irTienda() {
+    if(juego) juego.guardar();
     location.href = "tienda.html";
 }
 
 window.nuevaPartida = nuevaPartida;
+window.continuarPartida = continuarPartida;
 window.crearPartida = crearPartida;
 window.eliminarPartida = () => GameData.eliminarPartida();
 window.irTienda = irTienda;

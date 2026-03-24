@@ -8,60 +8,46 @@ export default class Juego {
         this.granja = data.granja;
         this.dificultad = data.dificultad;
         this.dinero = data.dinero;
-
         this.inventario = data.inventario || {};
 
-        this.herramientas = data.herramientas
-            ? {
-                azada: new Herramienta("azada", data.herramientas.azada),
-                regadera: new Herramienta("regadera", data.herramientas.regadera),
-                hoz: new Herramienta("hoz", data.herramientas.hoz)
-            }
-            : {
-                azada: new Herramienta("azada", 1),
-                regadera: new Herramienta("regadera", 1),
-                hoz: new Herramienta("hoz", 1)
-            };
+        this.herramientas = {
+            azada: new Herramienta("azada", data.herramientas?.azada || 1),
+            regadera: new Herramienta("regadera", data.herramientas?.regadera || 1),
+            hoz: new Herramienta("hoz", data.herramientas?.hoz || 1)
+        };
 
         this.campo = data.campo.map((c) =>
-            c ? new Planta(c.tipo, data.dificultad, this.herramientas) : null
+            c ? new Planta(c.tipo, this.dificultad, this.herramientas) : null
         );
     }
 
-    plantar(index) {
-        if (!semillaSeleccionada) {
+    plantar(index, semilla) {
+        if (!semilla) {
             alert("Selecciona una semilla primero");
-            return;
+            return false;
         }
 
-        if ((this.inventario[semillaSeleccionada] || 0) <= 0) {
+        if ((this.inventario[semilla] || 0) <= 0) {
             alert("No tienes semillas");
-            return;
+            return false;
         }
 
-        this.inventario[semillaSeleccionada]--;
-
-        this.campo[index] = new Planta(
-            semillaSeleccionada,
-            this.dificultad,
-            this.herramientas
-        );
-
+        this.inventario[semilla]--;
+        this.campo[index] = new Planta(semilla, this.dificultad, this.herramientas);
         this.guardar();
+        return true;
     }
 
     recolectar(index) {
         let cultivo = this.campo[index];
+        if (!cultivo) return;
 
         let precio = cultivo.precioBase;
-
         precio *= this.herramientas.azada.efectoPrecio();
         precio *= this.herramientas.hoz.efectoCantidad();
 
         this.dinero += Math.floor(precio);
-
         this.campo[index] = null;
-
         this.guardar();
     }
 
