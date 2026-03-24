@@ -1,7 +1,7 @@
 let juego = null;
 let semillaSeleccionada = null;
 
-class Difficulty {
+class Dificultad {
     static settings = {
         facil: { tiempo: 0.7, precio: 1.2 },
         normal: { tiempo: 1, precio: 1 },
@@ -13,7 +13,7 @@ class Difficulty {
     }
 }
 
-class CropConfig {
+class PlantaConfig {
     static semillas = {
         trigo: { tiempo: 5000, precio: 20 },
         maiz: { tiempo: 8000, precio: 34 },
@@ -21,7 +21,7 @@ class CropConfig {
 
     static get(tipo, dificultad) {
         let base = this.semillas[tipo];
-        let mod = Difficulty.get(dificultad);
+        let mod = Dificultad.get(dificultad);
 
         return {
             tiempo: base.tiempo * mod.tiempo,
@@ -30,10 +30,10 @@ class CropConfig {
     }
 }
 
-class Crop {
+class Planta {
     constructor(tipo, dificultad) {
         this.tipo = tipo;
-        this.config = CropConfig.get(tipo, dificultad);
+        this.config = PlantaConfig.get(tipo, dificultad);
 
         this.inicio = Date.now();
         this.tiempoTotal = this.config.tiempo;
@@ -49,7 +49,7 @@ class Crop {
     }
 }
 
-class Game {
+class Juego {
     constructor(data) {
         this.nombre = data.nombre;
         this.granja = data.granja;
@@ -57,7 +57,7 @@ class Game {
         this.dinero = data.dinero;
 
         this.inventario = data.inventario || {};
-        this.campo = data.campo.map((c) => (c ? new Crop(c.tipo, data.dificultad) : null));
+        this.campo = data.campo.map((c) => (c ? new Planta(c.tipo, data.dificultad) : null));
     }
 
     plantar(index) {
@@ -73,7 +73,7 @@ class Game {
 
         this.inventario[semillaSeleccionada]--;
 
-        this.campo[index] = new Crop(semillaSeleccionada, this.dificultad);
+        this.campo[index] = new Planta(semillaSeleccionada, this.dificultad);
 
         this.guardar();
     }
@@ -81,7 +81,7 @@ class Game {
     recolectar(index) {
         let cultivo = this.campo[index];
 
-        let precio = CropConfig.get(cultivo.tipo, this.dificultad).precio;
+        let precio = PlantaConfig.get(cultivo.tipo, this.dificultad).precio;
 
         this.dinero += precio;
 
@@ -135,7 +135,7 @@ function crearPartida() {
         campo: Array(25).fill(null),
     };
 
-    juego = new Game(data);
+    juego = new Juego(data);
 
     juego.guardar();
 
@@ -224,7 +224,7 @@ window.onload = function () {
     let data = cargarJuego();
 
     if (data) {
-        juego = new Game(data);
+        juego = new Juego(data);
 
         iniciarJuego();
     }
