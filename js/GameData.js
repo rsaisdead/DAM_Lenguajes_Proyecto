@@ -27,7 +27,6 @@ export default class GameData {
     static eliminarPartida() {
         if (confirm("seguro de que quieres borrar tu granja?")) {
             localStorage.removeItem("granjaSave");
-            alert("Partida eliminada");
             location.reload();
         }
     }
