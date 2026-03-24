@@ -36,6 +36,11 @@ button:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: transform .1s;
+}
+
+.parcela:hover {
+    transform: scale(1.1);
 }
 
 .vacio {
