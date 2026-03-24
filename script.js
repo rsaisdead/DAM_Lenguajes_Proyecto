@@ -72,7 +72,11 @@ function renderInventario() {
         let btn = document.createElement("button");
         btn.innerText = `${semilla} (${cantidad})`;
 
-        if (semillaSeleccionada === semilla) btn.style.border = "2px solid yellow";
+        if (semillaSeleccionada === semilla) {
+            btn.style.border = "2px solid #ffacac";
+            btn.style.borderRadius = "5px";
+            btn.style.background = "#c9c9cd";
+        }
         
         btn.onclick = () => {
             semillaSeleccionada = semilla;

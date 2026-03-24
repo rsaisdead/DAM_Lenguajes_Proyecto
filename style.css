@@ -8,6 +8,11 @@ button {
     padding: 10px;
     margin: 10px;
     cursor: pointer;
+    transition: transform .2s;
+}
+
+button:hover {
+    transform: scale(1.1);
 }
 
 .hidden {
