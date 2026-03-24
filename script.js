@@ -13,6 +13,35 @@ class Dificultad {
     }
 }
 
+class Herramienta {
+    constructor(nombre, nivel = 1) {
+        this.nombre = nombre;
+        this.nivel = nivel;
+    }
+
+    efectoTiempo() {
+        if (this.nombre === "regadera") {
+            return 1 - (0.1 * this.nivel);
+        }
+        return 1;
+    }
+
+    efectoPrecio() {
+        if (this.nombre === "azada") {
+            return 1 + (0.2 * this.nivel);
+        }
+        return 1;
+    }
+
+    efectoCantidad() {
+        if (this.nombre === "hoz") {
+            return 1 + this.nivel;
+        }
+        return 1;
+    }
+
+}
+
 class PlantaConfig {
     static semillas = {
         trigo: { tiempo: 5000, precio: 20 },
@@ -31,12 +60,14 @@ class PlantaConfig {
 }
 
 class Planta {
-    constructor(tipo, dificultad) {
+    constructor(tipo, dificultad, herramientas) {
         this.tipo = tipo;
-        this.config = PlantaConfig.get(tipo, dificultad);
+        let config = PlantaConfig.get(tipo, dificultad);
+        let tiempoMod = herramientas.regadera.efectoTiempo();
+        this.tiempoTotal = config.tiempo * tiempoMod;
+        this.precioBase = config.precio;
 
         this.inicio = Date.now();
-        this.tiempoTotal = this.config.tiempo;
     }
 
     tiempoRestante() {
@@ -57,7 +88,22 @@ class Juego {
         this.dinero = data.dinero;
 
         this.inventario = data.inventario || {};
-        this.campo = data.campo.map((c) => (c ? new Planta(c.tipo, data.dificultad) : null));
+
+        this.herramientas = data.herramientas
+            ? {
+                azada: new Herramienta("azada", data.herramientas.azada),
+                regadera: new Herramienta("regadera", data.herramientas.regadera),
+                hoz: new Herramienta("hoz", data.herramientas.hoz)
+            }
+            : {
+                azada: new Herramienta("azada", 1),
+                regadera: new Herramienta("regadera", 1),
+                hoz: new Herramienta("hoz", 1)
+            };
+
+        this.campo = data.campo.map((c) =>
+            c ? new Planta(c.tipo, data.dificultad, this.herramientas) : null
+        );
     }
 
     plantar(index) {
@@ -73,7 +119,11 @@ class Juego {
 
         this.inventario[semillaSeleccionada]--;
 
-        this.campo[index] = new Planta(semillaSeleccionada, this.dificultad);
+        this.campo[index] = new Planta(
+            semillaSeleccionada,
+            this.dificultad,
+            this.herramientas
+        );
 
         this.guardar();
     }
@@ -81,9 +131,12 @@ class Juego {
     recolectar(index) {
         let cultivo = this.campo[index];
 
-        let precio = PlantaConfig.get(cultivo.tipo, this.dificultad).precio;
+        let precio = cultivo.precioBase;
 
-        this.dinero += precio;
+        precio *= this.herramientas.azada.efectoPrecio();
+        precio *= this.herramientas.hoz.efectoCantidad();
+
+        this.dinero += Math.floor(precio);
 
         this.campo[index] = null;
 
@@ -97,6 +150,11 @@ class Juego {
             dificultad: this.dificultad,
             dinero: this.dinero,
             inventario: this.inventario,
+            herramientas: {
+                azada: this.herramientas.azada.nivel,
+                regadera: this.herramientas.regadera.nivel,
+                hoz: this.herramientas.hoz.nivel
+            },
             campo: this.campo.map((c) => (c ? { tipo: c.tipo } : null)),
         };
 
@@ -132,6 +190,7 @@ function crearPartida() {
         dificultad,
         dinero: 500,
         inventario: {},
+        herramientas: null,
         campo: Array(25).fill(null),
     };
 
@@ -145,7 +204,11 @@ function crearPartida() {
 function iniciarJuego() {
     mostrar("juego");
 
-    document.getElementById("infoNombre").innerText = "Granjero: " + juego.nombre;
+    document.getElementById("infoNombre").innerText =
+        "Granjero: " + juego.nombre;
+
+    document.getElementById("infoDinero").innerText =
+        "Dinero: " + juego.dinero;
 
     renderInventario();
     renderCampo();
@@ -159,7 +222,6 @@ function actualizarCultivos() {
 
 function renderInventario() {
     let inv = document.getElementById("inventario");
-
     if (!inv) return;
 
     inv.innerHTML = "";
@@ -170,9 +232,7 @@ function renderInventario() {
         if (cantidad <= 0) continue;
 
         let btn = document.createElement("button");
-
         btn.innerText = semilla + " (" + cantidad + ")";
-
         btn.onclick = () => (semillaSeleccionada = semilla);
 
         inv.appendChild(btn);
@@ -181,12 +241,10 @@ function renderInventario() {
 
 function renderCampo() {
     let campo = document.getElementById("campo");
-
     campo.innerHTML = "";
 
     juego.campo.forEach((parcela, i) => {
         let div = document.createElement("div");
-
         div.classList.add("parcela");
 
         if (!parcela) {
@@ -197,8 +255,10 @@ function renderCampo() {
                 renderCampo();
                 renderInventario();
             };
+
         } else {
             if (parcela.estaMaduro()) {
+
                 div.classList.add("maduro");
 
                 div.onclick = () => {
@@ -210,6 +270,7 @@ function renderCampo() {
 
                 div.innerText = parcela.tiempoRestante() + "s";
             }
+
         }
 
         campo.appendChild(div);
@@ -221,11 +282,11 @@ function irTienda() {
 }
 
 window.onload = function () {
+
     let data = cargarJuego();
 
     if (data) {
         juego = new Juego(data);
-
         iniciarJuego();
     }
 };
