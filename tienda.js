@@ -33,7 +33,11 @@ function comprar(tipo, precio) {
 }
 
 function volver() {
-    juego.guardar();
+    if (juego) {
+        juego.guardar();
+    }
+    
+    localStorage.setItem('vinoDeTienda', 'true');
     location.href = "index.html";
 }
 

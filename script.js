@@ -131,6 +131,19 @@ function irTienda() {
     location.href = "tienda.html";
 }
 
+const vinoDeTienda = localStorage.getItem('vinoDeTienda');
+if (vinoDeTienda === 'true') {
+    localStorage.removeItem('vinoDeTienda');
+    const datosGuardados = GameData.cargarJuego();
+    if (datosGuardados) {
+        juego = new Juego(datosGuardados);
+        iniciarJuego();
+    } else {
+        alert('Error, vuelves de la tienda pero no hay datos guardados?');
+        mostrar("menu");
+    }
+}
+
 window.nuevaPartida = nuevaPartida;
 window.continuarPartida = continuarPartida;
 window.crearPartida = crearPartida;
