@@ -30,6 +30,14 @@ export default class Juego {
             return false;
         }
 
+        let numero = Math.random();
+        // 10% de eliminar semilla sin plantas
+        if (numero < 0.1) {
+            this.inventario[semilla]--;
+            this.guardar();
+            return true;
+        }
+
         this.inventario[semilla]--;
         this.campo[index] = new Planta(semilla, this.dificultad, this.herramientas);
         this.guardar();
@@ -52,6 +60,17 @@ export default class Juego {
 
         this.dinero += Math.floor(precio);
         this.campo[index] = null;
+
+        this.guardar();
+        return true;
+    }
+
+    reiniciar(index) {
+        let cultivo = this.campo[index];
+
+        if (!cultivo) return;
+
+        cultivo.inicio = Date.now();
 
         this.guardar();
         return true;

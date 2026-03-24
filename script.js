@@ -8,6 +8,7 @@ function mostrar(id) {
     document.getElementById("menu").classList.add("hidden");
     document.getElementById("config").classList.add("hidden");
     document.getElementById("juego").classList.add("hidden");
+    document.getElementById("tutorial").classList.add("hidden");
     document.getElementById(id).classList.remove("hidden");
 }
 
@@ -16,7 +17,14 @@ function nuevaPartida() {
         return;
     }
 
-    mostrar("config");
+    let primeraVez = localStorage.getItem("primeraVez");
+
+    if (primeraVez != "false") {
+        mostrar("tutorial");
+        localStorage.setItem("primeraVez", "false");
+    } else {
+        mostrar("config");
+    }
 }
 
 function crearPartida() {
@@ -102,6 +110,11 @@ function renderCampo() {
         let div = document.createElement("div");
         div.classList.add("parcela");
 
+        div.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+            juego.reiniciar(i);
+        });
+
         if (!parcela) {
             div.classList.add("vacio");
             div.onclick = () => {
@@ -143,6 +156,10 @@ function irTienda() {
     location.href = "tienda.html";
 }
 
+function pasarTutorial() {
+    mostrar("config");
+}
+
 const vinoDeTienda = localStorage.getItem("vinoDeTienda");
 if (vinoDeTienda === "true") {
     localStorage.removeItem("vinoDeTienda");
@@ -160,4 +177,5 @@ window.nuevaPartida = nuevaPartida;
 window.continuarPartida = continuarPartida;
 window.crearPartida = crearPartida;
 window.eliminarPartida = () => GameData.eliminarPartida();
+window.pasarTutorial = pasarTutorial;
 window.irTienda = irTienda;

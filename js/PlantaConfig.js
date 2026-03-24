@@ -4,6 +4,7 @@ export default class PlantaConfig {
     static semillas = {
         trigo: { tiempo: 5000, precio: 17 },
         maiz: { tiempo: 8000, precio: 31 },
+        patata: {tiempo: 20000, precio: 50},
     };
 
     static get(tipo, dificultad) {
