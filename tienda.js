@@ -1,7 +1,9 @@
+import GameData from "./js/GameData";
+
 let juego = null;
 
 function cargar() {
-    juego = cargarJuego();
+    juego = GameData.cargarJuego();
 
     if (!juego) {
         alert("No hay partida");
@@ -24,7 +26,7 @@ function comprar(tipo, precio) {
 
     juego.inventario[tipo]++;
 
-    guardarJuego(juego);
+    GameData.guardarJuego(juego);
 
     document.getElementById("dinero").innerText = "Dinero disponible: " + juego.dinero;
 }
