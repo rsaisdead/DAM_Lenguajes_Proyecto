@@ -1,4 +1,4 @@
-import PlantaConfig from './PlantaConfig.js';
+import PlantaConfig from "./PlantaConfig.js";
 
 export default class Planta {
     constructor(tipo, dificultad, herramientas) {

@@ -1,6 +1,6 @@
-import Herramienta from './Herramienta.js';
-import Planta from './Planta.js';
-import GameData from './GameData.js';
+import Herramienta from "./Herramienta.js";
+import Planta from "./Planta.js";
+import GameData from "./GameData.js";
 
 export default class Juego {
     constructor(data) {
@@ -13,12 +13,10 @@ export default class Juego {
         this.herramientas = {
             azada: new Herramienta("azada", data.herramientas?.azada || 1),
             regadera: new Herramienta("regadera", data.herramientas?.regadera || 1),
-            hoz: new Herramienta("hoz", data.herramientas?.hoz || 1)
+            hoz: new Herramienta("hoz", data.herramientas?.hoz || 1),
         };
 
-        this.campo = data.campo.map((c) =>
-            c ? new Planta(c.tipo, this.dificultad, this.herramientas) : null
-        );
+        this.campo = data.campo.map((c) => (c ? new Planta(c.tipo, this.dificultad, this.herramientas) : null));
     }
 
     plantar(index, semilla) {
@@ -61,7 +59,7 @@ export default class Juego {
             herramientas: {
                 azada: this.herramientas.azada.nivel,
                 regadera: this.herramientas.regadera.nivel,
-                hoz: this.herramientas.hoz.nivel
+                hoz: this.herramientas.hoz.nivel,
             },
             campo: this.campo.map((c) => (c ? { tipo: c.tipo } : null)),
         };

@@ -1,4 +1,4 @@
-import Dificultad from './Dificultad.js';
+import Dificultad from "./Dificultad.js";
 
 export default class PlantaConfig {
     static semillas = {

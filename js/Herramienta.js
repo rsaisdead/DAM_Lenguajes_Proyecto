@@ -6,14 +6,14 @@ export default class Herramienta {
 
     efectoTiempo() {
         if (this.nombre === "regadera") {
-            return 1 - (0.1 * this.nivel);
+            return 1 - 0.1 * this.nivel;
         }
         return 1;
     }
 
     efectoPrecio() {
         if (this.nombre === "azada") {
-            return 1 + (0.2 * this.nivel);
+            return 1 + 0.2 * this.nivel;
         }
         return 1;
     }
@@ -24,5 +24,4 @@ export default class Herramienta {
         }
         return 1;
     }
-
 }

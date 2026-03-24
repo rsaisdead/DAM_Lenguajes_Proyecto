@@ -8,7 +8,7 @@ button {
     padding: 10px;
     margin: 10px;
     cursor: pointer;
-    transition: transform .2s;
+    transition: transform 0.2s;
 }
 
 button:hover {

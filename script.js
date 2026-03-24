@@ -1,5 +1,5 @@
-import Juego from './js/Juego.js';
-import GameData from './js/GameData.js';
+import Juego from "./js/Juego.js";
+import GameData from "./js/GameData.js";
 
 let juego = null;
 let semillaSeleccionada = null;
@@ -77,7 +77,7 @@ function renderInventario() {
             btn.style.borderRadius = "5px";
             btn.style.background = "#c9c9cd";
         }
-        
+
         btn.onclick = () => {
             semillaSeleccionada = semilla;
             renderInventario();
@@ -131,19 +131,19 @@ function continuarPartida() {
 }
 
 function irTienda() {
-    if(juego) juego.guardar();
+    if (juego) juego.guardar();
     location.href = "tienda.html";
 }
 
-const vinoDeTienda = localStorage.getItem('vinoDeTienda');
-if (vinoDeTienda === 'true') {
-    localStorage.removeItem('vinoDeTienda');
+const vinoDeTienda = localStorage.getItem("vinoDeTienda");
+if (vinoDeTienda === "true") {
+    localStorage.removeItem("vinoDeTienda");
     const datosGuardados = GameData.cargarJuego();
     if (datosGuardados) {
         juego = new Juego(datosGuardados);
         iniciarJuego();
     } else {
-        alert('Error, vuelves de la tienda pero no hay datos guardados?');
+        alert("Error, vuelves de la tienda pero no hay datos guardados?");
         mostrar("menu");
     }
 }

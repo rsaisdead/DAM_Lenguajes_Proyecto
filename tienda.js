@@ -36,8 +36,8 @@ function volver() {
     if (juego) {
         juego.guardar();
     }
-    
-    localStorage.setItem('vinoDeTienda', 'true');
+
+    localStorage.setItem("vinoDeTienda", "true");
     location.href = "index.html";
 }
 
