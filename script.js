@@ -70,6 +70,10 @@ function renderInventario() {
     inv.innerHTML = "";
 
     for (let semilla in juego.inventario) {
+        if (semilla == "herramientas") {
+            continue;
+        }
+
         let cantidad = juego.inventario[semilla];
         if (cantidad <= 0) continue;
 

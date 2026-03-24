@@ -2,31 +2,63 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <title>Tienda</title>
-
+        <title>Tienda - Granja</title>
         <link rel="stylesheet" href="tienda.css" />
     </head>
 
     <body>
-        <h1>Tienda de semillas</h1>
+        <h1>Tienda de la Granja</h1>
 
-        <div id="dinero"></div>
+        <div id="dinero">Dinero disponible: 0</div>
 
-        <div id="tienda">
-            <div class="item">
-                <h3>Semillas de Trigo</h3>
-                <p>Precio: 10</p>
-                <button onclick="comprar('trigo', 10)">Comprar</button>
+        <section>
+            <h2>Semillas</h2>
+            <div id="tienda-semillas tienda" class="contenedor-tienda">
+                <div class="item">
+                    <h3>Trigo</h3>
+                    <p>Precio: 10</p>
+                    <button onclick="comprar('trigo', 10)">Comprar Semilla</button>
+                </div>
+
+                <div class="item">
+                    <h3>Maíz</h3>
+                    <p>Precio: 20</p>
+                    <button onclick="comprar('maiz', 20)">Comprar Semilla</button>
+                </div>
             </div>
+        </section>
 
-            <div class="item">
-                <h3>Semillas de Maíz</h3>
-                <p>Precio: 20</p>
-                <button onclick="comprar('maiz', 20)">Comprar</button>
+        <section>
+            <h2>Mejoras de Herramientas</h2>
+            <div id="tienda-herramientas tienda" class="contenedor-tienda">
+                <div class="item">
+                    <h3>Regadera</h3>
+                    <p>Efecto: Reduce el tiempo de crecimiento</p>
+                    <p>Nivel actual: <span id="lvl-regadera">1</span></p>
+                    <p>Mejorar por: <span id="precio-regadera">---</span></p>
+                    <button onclick="comprarHerramienta('regadera')">Mejorar</button>
+                </div>
+
+                <div class="item">
+                    <h3>Azada</h3>
+                    <p>Efecto: Aumenta el valor de venta</p>
+                    <p>Nivel actual: <span id="lvl-azada">1</span></p>
+                    <p>Mejorar por: <span id="precio-azada">---</span></p>
+                    <button onclick="comprarHerramienta('azada')">Mejorar</button>
+                </div>
+
+                <div class="item">
+                    <h3>Hoz</h3>
+                    <p>Efecto: Multiplica la cosecha</p>
+                    <p>Nivel actual: <span id="lvl-hoz">1</span></p>
+                    <p>Mejorar por: <span id="precio-hoz">---</span></p>
+                    <button onclick="comprarHerramienta('hoz')">Mejorar</button>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <button onclick="volver()">Volver a la granja</button>
+        <br>
+        <button class="btn-volver" onclick="volver()">Volver a la granja</button>
 
         <script type="module" src="tienda.js"></script>
     </body>

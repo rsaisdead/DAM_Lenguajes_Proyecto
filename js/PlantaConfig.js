@@ -2,8 +2,8 @@ import Dificultad from "./Dificultad.js";
 
 export default class PlantaConfig {
     static semillas = {
-        trigo: { tiempo: 5000, precio: 20 },
-        maiz: { tiempo: 8000, precio: 34 },
+        trigo: { tiempo: 5000, precio: 17 },
+        maiz: { tiempo: 8000, precio: 31 },
     };
 
     static get(tipo, dificultad) {

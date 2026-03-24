@@ -6,22 +6,27 @@ export default class Herramienta {
 
     efectoTiempo() {
         if (this.nombre === "regadera") {
-            return 1 - 0.1 * this.nivel;
+            return 1 - 0.05 * this.nivel;
         }
         return 1;
     }
 
     efectoPrecio() {
         if (this.nombre === "azada") {
-            return 1 + 0.2 * this.nivel;
+            return 1 + 0.05 * this.nivel;
         }
         return 1;
     }
 
     efectoCantidad() {
-        if (this.nombre === "hoz") {
-            return 1 + this.nivel;
+    if (this.nombre === "hoz") {
+        let probabilidadExito = 0.05 * this.nivel;
+        let rudoAleatorio = Math.random();
+
+        if (rudoAleatorio < probabilidadExito) {
+            return Math.max(2, this.nivel);
         }
-        return 1;
     }
+    return 1;
+}
 }

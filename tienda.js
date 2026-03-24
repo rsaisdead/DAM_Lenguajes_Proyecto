@@ -1,18 +1,19 @@
 import GameData from "./js/GameData.js";
 import Juego from "./js/Juego.js";
+import HerramientaConfig from "./js/HerramientaConfig.js";
 
 let juego = null;
 
 function cargar() {
-    juego = new Juego(GameData.cargarJuego());
-
-    if (!juego) {
+    const datos = GameData.cargarJuego();
+    if (!datos) {
         alert("No hay partida");
         location.href = "index.html";
         return;
     }
 
-    document.getElementById("dinero").innerText = "Dinero disponible: " + juego.dinero;
+    juego = new Juego(datos);
+    actualizarInterfaz();
 }
 
 function comprar(tipo, precio) {
@@ -24,12 +25,42 @@ function comprar(tipo, precio) {
     juego.dinero -= precio;
 
     if (!juego.inventario[tipo]) juego.inventario[tipo] = 0;
-
     juego.inventario[tipo]++;
 
-    GameData.guardarJuego(juego);
+    juego.guardar();
+    actualizarInterfaz();
+}
 
-    document.getElementById("dinero").innerText = "Dinero disponible: " + juego.dinero;
+function comprarHerramienta(tipo) {
+    const herramienta = juego.herramientas[tipo];
+    const precioMejora = HerramientaConfig.getCostoMejora(tipo, juego.dificultad, herramienta.nivel);
+
+    if (juego.dinero < precioMejora) {
+        alert("No tienes dinero suficiente para la mejora");
+        return;
+    }
+
+    juego.dinero -= precioMejora;
+    herramienta.nivel++;
+
+    juego.guardar();
+    actualizarInterfaz();
+}
+
+function actualizarInterfaz() {
+    document.getElementById("dinero").innerText = "Dinero disponible: " + Math.floor(juego.dinero);
+
+    const tipos = ["regadera", "azada", "hoz"];
+    tipos.forEach((tipo) => {
+        const h = juego.herramientas[tipo];
+        const precio = HerramientaConfig.getCostoMejora(tipo, juego.dificultad, h.nivel);
+
+        const lvlElem = document.getElementById(`lvl-${tipo}`);
+        const precioElem = document.getElementById(`precio-${tipo}`);
+
+        if (lvlElem) lvlElem.innerText = h.nivel;
+        if (precioElem) precioElem.innerText = precio;
+    });
 }
 
 function volver() {
@@ -42,5 +73,7 @@ function volver() {
 }
 
 window.comprar = comprar;
+window.comprarHerramienta = comprarHerramienta;
 window.volver = volver;
+
 cargar();

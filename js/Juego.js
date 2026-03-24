@@ -16,7 +16,7 @@ export default class Juego {
             hoz: new Herramienta("hoz", data.herramientas?.hoz || 1),
         };
 
-        this.campo = data.campo.map((c) => (c ? new Planta(c.tipo, this.dificultad, this.herramientas) : null));
+        this.campo = data.campo.map((c) => (c ? new Planta(c.tipo, this.dificultad, this.herramientas, c.inicio) : null));
     }
 
     plantar(index, semilla) {
@@ -38,7 +38,13 @@ export default class Juego {
 
     recolectar(index) {
         let cultivo = this.campo[index];
+
         if (!cultivo) return;
+
+        if (!cultivo.estaMaduro()) {
+            this.campo[index] = null;
+            return;
+        }
 
         let precio = cultivo.precioBase;
         precio *= this.herramientas.azada.efectoPrecio();
@@ -46,7 +52,9 @@ export default class Juego {
 
         this.dinero += Math.floor(precio);
         this.campo[index] = null;
+
         this.guardar();
+        return true;
     }
 
     guardar() {
@@ -61,7 +69,7 @@ export default class Juego {
                 regadera: this.herramientas.regadera.nivel,
                 hoz: this.herramientas.hoz.nivel,
             },
-            campo: this.campo.map((c) => (c ? { tipo: c.tipo } : null)),
+            campo: this.campo.map((c) => (c ? { tipo: c.tipo, inicio: c.inicio } : null)),
         };
 
         GameData.guardarJuego(data);

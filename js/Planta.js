@@ -1,18 +1,19 @@
 import PlantaConfig from "./PlantaConfig.js";
 
 export default class Planta {
-    constructor(tipo, dificultad, herramientas) {
+    constructor(tipo, dificultad, herramientas, inicio = null) {
         this.tipo = tipo;
         let config = PlantaConfig.get(tipo, dificultad);
         let tiempoMod = herramientas.regadera.efectoTiempo();
         this.tiempoTotal = config.tiempo * tiempoMod;
         this.precioBase = config.precio;
 
-        this.inicio = Date.now();
+        this.inicio = inicio || Date.now();
     }
 
     tiempoRestante() {
-        let t = this.tiempoTotal - (Date.now() - this.inicio);
+        let transcurrido = Date.now() - this.inicio;
+        let t = this.tiempoTotal - transcurrido;
         return Math.max(0, Math.ceil(t / 1000));
     }
 
