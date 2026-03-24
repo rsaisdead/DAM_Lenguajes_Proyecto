@@ -113,7 +113,7 @@ function renderCampo() {
         } else {
             if (parcela.estaMaduro()) {
                 div.classList.add("maduro");
-                div.innerText = "¡Listo!";
+                div.innerText = "Listo!";
                 div.onclick = () => {
                     juego.recolectar(i);
                     actualizarInterfazDinero();
