@@ -1,20 +1,44 @@
 import Dificultad from "./Dificultad.js";
+import XMLManager from "./XMLManager.js";
 
 export default class HerramientaConfig {
-    static herramientasBase = {
-        regadera: { precioBase: 1000 },
-        azada: { precioBase: 1000 },
-        hoz: { precioBase: 1000 },
-    };
+    static xml = new XMLManager("datos.xml");
 
-    static getCostoMejora(tipo, dificultad, nivelActual) {
-        const config = this.herramientasBase[tipo];
-        if (!config) return null;
+    static herramientas = [];
 
-        const modDificultad = Dificultad.get(dificultad);
+    static async inicializar() {
+        this.herramientas = await this.xml.obtenerHerramientas();
+    }
 
-        const precioEscalado = config.precioBase * Math.pow(1.5, nivelActual);
+    static get(nombre, dificultad) {
+        let base = this.herramientas.find((h) => h.nombre === nombre);
 
-        return Math.round(precioEscalado * modDificultad.precio);
+        if (!base) {
+            console.error("Herramienta no encontrada:", nombre);
+            return null;
+        }
+
+        let mod = Dificultad.get(dificultad);
+
+        return {
+            nivel: base.nivel,
+            mejora: base.mejora * mod.precio,
+            coste: base.coste * mod.precio,
+        };
+    }
+
+    static getCostoMejora(nombre, dificultad, nivelActual) {
+        let base = this.herramientas.find((h) => h.nombre === nombre);
+
+        if (!base) {
+            console.error("Herramienta no encontrada:", nombre);
+            return null;
+        }
+
+        let mod = Dificultad.get(dificultad);
+
+        let precioEscalado = base.coste * Math.pow(1.5, nivelActual);
+
+        return Math.round(precioEscalado * mod.precio);
     }
 }

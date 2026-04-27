@@ -7,8 +7,13 @@ export default class Planta {
         let tiempoMod = herramientas.regadera.efectoTiempo();
         this.tiempoTotal = config.tiempo * tiempoMod;
         this.precioBase = config.precio;
+        this.inicializar();
 
         this.inicio = inicio || Date.now();
+    }
+
+    async inicializar() {
+        await PlantaConfig.inicializar();
     }
 
     tiempoRestante() {

@@ -1,7 +1,11 @@
+import HerramientaConfig from "./HerramientaConfig.js";
+
 export default class Herramienta {
     constructor(nombre, nivel = 1) {
         this.nombre = nombre;
         this.nivel = nivel;
+
+        HerramientaConfig.inicializar();
     }
 
     efectoTiempo() {
@@ -19,14 +23,14 @@ export default class Herramienta {
     }
 
     efectoCantidad() {
-    if (this.nombre === "hoz") {
-        let probabilidadExito = 0.05 * this.nivel;
-        let rudoAleatorio = Math.random();
+        if (this.nombre === "hoz") {
+            let probabilidadExito = 0.05 * this.nivel;
+            let rudoAleatorio = Math.random();
 
-        if (rudoAleatorio < probabilidadExito) {
-            return Math.max(2, this.nivel);
+            if (rudoAleatorio < probabilidadExito) {
+                return Math.max(2, this.nivel);
+            }
         }
+        return 1;
     }
-    return 1;
-}
 }

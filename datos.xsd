@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="granja">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:element name="semillas">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="semilla" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="precio" type="xs:integer" />
+                                        <xs:element name="tiempo" type="xs:integer" />
+                                        <xs:element name="beneficio" type="xs:integer" />
+                                    </xs:sequence>
+                                    <xs:attribute name="tipo" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="herramientas">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="herramienta" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nivel" type="xs:integer" />
+                                        <xs:element name="mejora" type="xs:integer" />
+                                        <xs:element name="coste" type="xs:integer" />
+                                    </xs:sequence>
+                                    <xs:attribute name="nombre" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

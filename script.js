@@ -1,5 +1,7 @@
 import Juego from "./js/Juego.js";
 import GameData from "./js/GameData.js";
+import PlantaConfig from "./js/PlantaConfig.js";
+import HerramientaConfig from "./js/HerramientaConfig.js";
 
 let juego = null;
 let semillaSeleccionada = null;
@@ -155,6 +157,9 @@ if (vinoDeTienda === "true") {
         mostrar("menu");
     }
 }
+
+PlantaConfig.inicializar();
+HerramientaConfig.inicializar();
 
 window.nuevaPartida = nuevaPartida;
 window.continuarPartida = continuarPartida;

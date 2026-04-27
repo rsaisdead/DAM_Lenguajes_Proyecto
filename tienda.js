@@ -1,11 +1,16 @@
 import GameData from "./js/GameData.js";
 import Juego from "./js/Juego.js";
 import HerramientaConfig from "./js/HerramientaConfig.js";
+import PlantaConfig from "./js/PlantaConfig.js";
 
 let juego = null;
 
-function cargar() {
+async function cargar() {
     const datos = GameData.cargarJuego();
+
+    await PlantaConfig.inicializar();
+    await HerramientaConfig.inicializar();
+
     if (!datos) {
         alert("No hay partida");
         location.href = "index.html";
@@ -50,16 +55,19 @@ function comprarHerramienta(tipo) {
 function actualizarInterfaz() {
     document.getElementById("dinero").innerText = "Dinero disponible: " + Math.floor(juego.dinero);
 
-    const tipos = ["regadera", "azada", "hoz"];
-    tipos.forEach((tipo) => {
-        const h = juego.herramientas[tipo];
-        const precio = HerramientaConfig.getCostoMejora(tipo, juego.dificultad, h.nivel);
+    Object.values(juego.herramientas).forEach((h) => {
+        const precio = HerramientaConfig.getCostoMejora(h.nombre, juego.dificultad, h.nivel);
 
-        const lvlElem = document.getElementById(`lvl-${tipo}`);
-        const precioElem = document.getElementById(`precio-${tipo}`);
+        const lvlElem = document.getElementById(`lvl-${h.nombre}`);
+        const precioElem = document.getElementById(`precio-${h.nombre}`);
 
-        if (lvlElem) lvlElem.innerText = h.nivel;
-        if (precioElem) precioElem.innerText = precio;
+        if (lvlElem) {
+            lvlElem.innerText = h.nivel;
+        }
+
+        if (precioElem) {
+            precioElem.innerText = precio ?? "-";
+        }
     });
 }
 
