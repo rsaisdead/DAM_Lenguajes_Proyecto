@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <granja>
-
     <semillas>
-
         <semilla tipo="trigo">
             <precio>20</precio>
             <tiempo>5000</tiempo>
-            <beneficio>35</beneficio>
+            <beneficio>30</beneficio>
         </semilla>
 
         <semilla tipo="maiz">
             <precio>35</precio>
-            <tiempo>8000</tiempo>
-            <beneficio>55</beneficio>
+            <tiempo>7500</tiempo>
+            <beneficio>50</beneficio>
         </semilla>
 
         <semilla tipo="zanahoria">
@@ -22,11 +20,20 @@
             <beneficio>80</beneficio>
         </semilla>
 
+        <semilla tipo="tomate">
+            <precio>100</precio>
+            <tiempo>20000</tiempo>
+            <beneficio>150</beneficio>
+        </semilla>
+
+        <semilla tipo="calabaza">
+            <precio>200</precio>
+            <tiempo>35000</tiempo>
+            <beneficio>300</beneficio>
+        </semilla>
     </semillas>
 
-
     <herramientas>
-
         <herramienta nombre="azada">
             <nivel>1</nivel>
             <mejora>20</mejora>
@@ -44,7 +51,5 @@
             <mejora>15</mejora>
             <coste>150</coste>
         </herramienta>
-
     </herramientas>
-
 </granja>

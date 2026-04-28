@@ -158,8 +158,8 @@ if (vinoDeTienda === "true") {
     }
 }
 
-PlantaConfig.inicializar();
-HerramientaConfig.inicializar();
+await PlantaConfig.inicializar();
+await HerramientaConfig.inicializar();
 
 window.nuevaPartida = nuevaPartida;
 window.continuarPartida = continuarPartida;

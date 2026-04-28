@@ -1,31 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial;
+    font-family: Arial, sans-serif;
+
+    background: linear-gradient(rgba(34, 60, 34, 0.45), rgba(34, 60, 34, 0.55)), #dcedc8;
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: #f1f8e9;
     text-align: center;
-    background: #e8f5e9;
+    min-height: 100vh;
+    padding: 30px 15px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #dcedc8;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin: 35px 0 20px;
+    color: #f1f8e9;
+}
+
+h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #dce775;
+}
+
+#dinero {
+    width: fit-content;
+    margin: auto;
+    padding: 12px 20px;
+
+    background: rgba(58, 88, 58, 0.88);
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 .contenedor-tienda {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    margin-top: 40px;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 25px;
 }
 
 .item {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    background: white;
-    width: 200px;
+    width: 230px;
+    padding: 22px;
+
+    border-radius: 16px;
+
+    background: rgba(58, 88, 58, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+
+    transition: 0.2s;
+}
+
+.item:hover {
+    transform: translateY(-4px);
+}
+
+.item p {
+    font-size: 0.95rem;
+    margin: 8px 0;
+    line-height: 1.4;
 }
 
 button {
-    padding: 10px;
-    margin-top: 10px;
+    background: #66bb6a;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 10px 16px;
+    margin-top: 12px;
+
+    font-size: 0.95rem;
+    font-family: inherit;
+
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: 0.2s;
 }
 
 button:hover {
-    transform: scale(1.1);
+    background: #81c784;
+    transform: scale(1.04);
+}
+
+.btn-volver {
+    margin-top: 35px;
+    padding: 12px 24px;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .item {
+        width: 100%;
+        max-width: 320px;
+    }
 }

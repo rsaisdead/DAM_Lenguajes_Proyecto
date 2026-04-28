@@ -13,27 +13,52 @@
 
         <section>
             <h2>Semillas</h2>
-            <div id="tienda-semillas tienda" class="contenedor-tienda">
+
+            <div id="tienda-semillas" class="contenedor-tienda">
                 <div class="item">
                     <h3>Trigo</h3>
                     <p>Precio: 10</p>
+                    <p>Crecimiento rápido y venta estable</p>
                     <button onclick="comprar('trigo', 10)">Comprar Semilla</button>
                 </div>
 
                 <div class="item">
                     <h3>Maíz</h3>
                     <p>Precio: 20</p>
+                    <p>Más lento pero más rentable</p>
                     <button onclick="comprar('maiz', 20)">Comprar Semilla</button>
+                </div>
+
+                <div class="item">
+                    <h3>Zanahoria</h3>
+                    <p>Precio: 30</p>
+                    <p>Buena ganancia y cosecha media</p>
+                    <button onclick="comprar('zanahoria', 30)">Comprar Semilla</button>
+                </div>
+
+                <div class="item">
+                    <h3>Tomate</h3>
+                    <p>Precio: 45</p>
+                    <p>Más cara pero excelente beneficio</p>
+                    <button onclick="comprar('tomate', 45)">Comprar Semilla</button>
+                </div>
+
+                <div class="item">
+                    <h3>Calabaza</h3>
+                    <p>Precio: 60</p>
+                    <p>Lenta pero altamente rentable</p>
+                    <button onclick="comprar('calabaza', 60)">Comprar Semilla</button>
                 </div>
             </div>
         </section>
 
         <section>
             <h2>Mejoras de Herramientas</h2>
-            <div id="tienda-herramientas tienda" class="contenedor-tienda">
+
+            <div id="tienda-herramientas" class="contenedor-tienda">
                 <div class="item">
                     <h3>Regadera</h3>
-                    <p>Efecto: Reduce el tiempo de crecimiento</p>
+                    <p>Reduce el tiempo de crecimiento</p>
                     <p>Nivel actual: <span id="lvl-regadera">1</span></p>
                     <p>Mejorar por: <span id="precio-regadera">---</span></p>
                     <button onclick="comprarHerramienta('regadera')">Mejorar</button>
@@ -41,7 +66,7 @@
 
                 <div class="item">
                     <h3>Azada</h3>
-                    <p>Efecto: Aumenta el valor de venta</p>
+                    <p>Aumenta el valor de venta</p>
                     <p>Nivel actual: <span id="lvl-azada">1</span></p>
                     <p>Mejorar por: <span id="precio-azada">---</span></p>
                     <button onclick="comprarHerramienta('azada')">Mejorar</button>
@@ -49,7 +74,7 @@
 
                 <div class="item">
                     <h3>Hoz</h3>
-                    <p>Efecto: Multiplica la cosecha</p>
+                    <p>Multiplica la cosecha obtenida</p>
                     <p>Nivel actual: <span id="lvl-hoz">1</span></p>
                     <p>Mejorar por: <span id="precio-hoz">---</span></p>
                     <button onclick="comprarHerramienta('hoz')">Mejorar</button>
@@ -57,7 +82,6 @@
             </div>
         </section>
 
-        <br>
         <button class="btn-volver" onclick="volver()">Volver a la granja</button>
 
         <script type="module" src="tienda.js"></script>
