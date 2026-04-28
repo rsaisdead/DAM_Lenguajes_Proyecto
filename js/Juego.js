@@ -30,6 +30,16 @@ export default class Juego {
             return false;
         }
 
+        if (this.herramientas.azada.nivel > 1) {
+            
+        } 
+        if (this.herramientas.hoz.nivel > 1) {
+
+        }
+        if (this.herramientas.regadera.nivel > 1) {
+
+        }
+
         this.inventario[semilla]--;
         this.campo[index] = new Planta(semilla, this.dificultad, this.herramientas);
         this.guardar();

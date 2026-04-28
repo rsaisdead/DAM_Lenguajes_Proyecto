@@ -3,33 +3,39 @@
 <granja>
     <semillas>
         <semilla tipo="trigo">
-            <precio>20</precio>
+            <precio>10</precio>
             <tiempo>5000</tiempo>
-            <beneficio>30</beneficio>
+            <beneficio>15</beneficio>
         </semilla>
 
         <semilla tipo="maiz">
-            <precio>35</precio>
+            <precio>20</precio>
             <tiempo>7500</tiempo>
-            <beneficio>50</beneficio>
+            <beneficio>30</beneficio>
         </semilla>
 
         <semilla tipo="zanahoria">
-            <precio>50</precio>
+            <precio>30</precio>
             <tiempo>10000</tiempo>
-            <beneficio>80</beneficio>
+            <beneficio>45</beneficio>
         </semilla>
 
         <semilla tipo="tomate">
-            <precio>100</precio>
+            <precio>45</precio>
             <tiempo>20000</tiempo>
-            <beneficio>150</beneficio>
+            <beneficio>70</beneficio>
         </semilla>
 
         <semilla tipo="calabaza">
-            <precio>200</precio>
+            <precio>60</precio>
             <tiempo>35000</tiempo>
-            <beneficio>300</beneficio>
+            <beneficio>90</beneficio>
+        </semilla>
+
+        <semilla tipo="arroz">
+            <precio>100</precio>
+            <tiempo>60000</tiempo>
+            <beneficio>150</beneficio>
         </semilla>
     </semillas>
 
