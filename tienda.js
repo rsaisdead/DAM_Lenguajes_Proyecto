@@ -82,16 +82,17 @@ function actualizarInterfaz() {
 
         const lvlElem = document.getElementById(`lvl-${h.nombre}`);
         const precioElem = document.getElementById(`precio-${h.nombre}`);
-        const arreglarElem = document.getElementById(`precio-arreglar-${h.nombre}`)
-        const botonElem = document.getElementById(`arreglar-boton-${h.nombre}`)
+        const arreglarPrecioElem = document.getElementById(`arreglar-${h.nombre}`);
+        const arreglarElem = document.getElementById(`precio-arreglar-${h.nombre}`);
+        const botonElem = document.getElementById(`arreglar-boton-${h.nombre}`);
 
         arreglarElem.innerText = precio * 0.4 ?? "-";
 
         if (h.rota) {
-            arreglarElem.classList.remove("hidden");
+            arreglarPrecioElem.classList.remove("hidden");
             botonElem.classList.remove("hidden");
         } else {
-            arreglarElem.classList.add("hidden");
+            arreglarPrecioElem.classList.add("hidden");
             botonElem.classList.add("hidden");
         }
 
