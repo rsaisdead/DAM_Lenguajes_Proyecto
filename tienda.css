@@ -112,6 +112,10 @@ button:hover {
     padding: 12px 24px;
 }
 
+.hidden {
+    display: none;
+}
+
 @media (max-width: 768px) {
     h1 {
         font-size: 1.6rem;

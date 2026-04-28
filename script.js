@@ -145,6 +145,9 @@ function irTienda() {
     location.href = "tienda.html";
 }
 
+await PlantaConfig.inicializar();
+await HerramientaConfig.inicializar();
+
 const vinoDeTienda = localStorage.getItem("vinoDeTienda");
 if (vinoDeTienda === "true") {
     localStorage.removeItem("vinoDeTienda");
@@ -157,9 +160,6 @@ if (vinoDeTienda === "true") {
         mostrar("menu");
     }
 }
-
-await PlantaConfig.inicializar();
-await HerramientaConfig.inicializar();
 
 window.nuevaPartida = nuevaPartida;
 window.continuarPartida = continuarPartida;

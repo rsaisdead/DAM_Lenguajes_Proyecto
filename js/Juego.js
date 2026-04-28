@@ -9,11 +9,13 @@ export default class Juego {
         this.dificultad = data.dificultad;
         this.dinero = data.dinero;
         this.inventario = data.inventario || {};
+        this.logro = data.logro;
+        this.dineroTotal = data.dineroTotal;
 
         this.herramientas = {
-            azada: new Herramienta("azada", data.herramientas?.azada || 1),
-            regadera: new Herramienta("regadera", data.herramientas?.regadera || 1),
-            hoz: new Herramienta("hoz", data.herramientas?.hoz || 1),
+            azada: new Herramienta("azada", data.herramientas?.azada || 1, data.herramientasRotas?.azada || false),
+            regadera: new Herramienta("regadera", data.herramientas?.regadera || 1, data.herramientasRotas?.regadera || false),
+            hoz: new Herramienta("hoz", data.herramientas?.hoz || 1, data.herramientasRotas?.hoz || false),
         };
 
         this.campo = data.campo.map((c) => (c ? new Planta(c.tipo, this.dificultad, this.herramientas, c.inicio) : null));
@@ -30,14 +32,31 @@ export default class Juego {
             return false;
         }
 
-        if (this.herramientas.azada.nivel > 1) {
-            
-        } 
-        if (this.herramientas.hoz.nivel > 1) {
+        if (!this.herramientas.azada.rota) {
+            let numero = Math.random();
 
+            if (numero < 0.1) {
+                alert("Se ha roto tu Azada")
+                this.herramientas.azada.rota = true;
+            }
         }
-        if (this.herramientas.regadera.nivel > 1) {
 
+        if (!this.herramientas.hoz.rota) {
+            let numero = Math.random();
+
+            if (numero < 0.1) {
+                alert("Se ha roto tu Hoz")
+                this.herramientas.hoz.rota = true;
+            }
+        }
+
+        if (!this.herramientas.regadera.rota) {
+            let numero = Math.random();
+
+            if (numero < 0.1) {
+                alert("Se ha roto tu Regadera")
+                this.herramientas.regadera.rota = true;
+            }
         }
 
         this.inventario[semilla]--;
@@ -61,6 +80,13 @@ export default class Juego {
         precio *= this.herramientas.hoz.efectoCantidad();
 
         this.dinero += Math.floor(precio);
+        this.dineroTotal += this.dinero;
+
+        if (this.dineroTotal > 100 && !this.logro) {
+            this.logro = true;
+            alert("Logro conseguido! Ve a la tienda para verlo");
+        }
+
         this.campo[index] = null;
 
         this.guardar();
@@ -74,10 +100,17 @@ export default class Juego {
             dificultad: this.dificultad,
             dinero: this.dinero,
             inventario: this.inventario,
+            logro: this.logro,
+            dineroTotal: this.dineroTotal,
             herramientas: {
                 azada: this.herramientas.azada.nivel,
                 regadera: this.herramientas.regadera.nivel,
                 hoz: this.herramientas.hoz.nivel,
+            },
+            herramientasRotas: {
+                azada: this.herramientas.azada.rota,
+                regadera: this.herramientas.regadera.rota,
+                hoz: this.herramientas.hoz.rota,
             },
             campo: this.campo.map((c) => (c ? { tipo: c.tipo, inicio: c.inicio } : null)),
         };

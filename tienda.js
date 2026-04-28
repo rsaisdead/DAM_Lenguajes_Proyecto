@@ -36,6 +36,24 @@ function comprar(tipo, precio) {
     actualizarInterfaz();
 }
 
+function arreglar(tipo) {
+    const herramienta = juego.herramientas[tipo];
+    const precioReparar = HerramientaConfig.getCostoMejora(tipo, juego.dificultad, herramienta.nivel) * 0.4;    
+
+    if (!herramienta.rota) { return; }
+
+    if (juego.dinero < precioReparar) {
+        alert("No tienes suficiente dinero");
+        return;
+    }
+
+    juego.dinero -= precioReparar;
+
+    herramienta.arreglar();
+    juego.guardar();
+    actualizarInterfaz();
+}
+
 function comprarHerramienta(tipo) {
     const herramienta = juego.herramientas[tipo];
     const precioMejora = HerramientaConfig.getCostoMejora(tipo, juego.dificultad, herramienta.nivel);
@@ -53,6 +71,10 @@ function comprarHerramienta(tipo) {
 }
 
 function actualizarInterfaz() {
+    if (juego.logro) {
+        document.getElementById("logro").classList.remove("hidden");
+    }
+
     document.getElementById("dinero").innerText = "Dinero disponible: " + Math.floor(juego.dinero);
 
     Object.values(juego.herramientas).forEach((h) => {
@@ -60,6 +82,18 @@ function actualizarInterfaz() {
 
         const lvlElem = document.getElementById(`lvl-${h.nombre}`);
         const precioElem = document.getElementById(`precio-${h.nombre}`);
+        const arreglarElem = document.getElementById(`precio-arreglar-${h.nombre}`)
+        const botonElem = document.getElementById(`arreglar-boton-${h.nombre}`)
+
+        arreglarElem.innerText = precio * 0.4 ?? "-";
+
+        if (h.rota) {
+            arreglarElem.classList.remove("hidden");
+            botonElem.classList.remove("hidden");
+        } else {
+            arreglarElem.classList.add("hidden");
+            botonElem.classList.add("hidden");
+        }
 
         if (lvlElem) {
             lvlElem.innerText = h.nivel;
@@ -82,6 +116,7 @@ function volver() {
 
 window.comprar = comprar;
 window.comprarHerramienta = comprarHerramienta;
+window.arreglar = arreglar;
 window.volver = volver;
 
 cargar();
