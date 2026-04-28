@@ -49,7 +49,7 @@ function arreglar(tipo) {
 
     juego.dinero -= precioReparar;
 
-    herramienta.arreglar();
+    herramienta.rota = false;
     juego.guardar();
     actualizarInterfaz();
 }

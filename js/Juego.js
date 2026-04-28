@@ -32,23 +32,9 @@ export default class Juego {
             return false;
         }
 
-        if (!this.herramientas.azada.rota) {
-            let numero = Math.random();
-
-            if (numero < 0.1) {
-                alert("Se ha roto tu Azada")
-                this.herramientas.azada.rota = true;
-            }
-        }
-
-        if (!this.herramientas.hoz.rota) {
-            let numero = Math.random();
-
-            if (numero < 0.1) {
-                alert("Se ha roto tu Hoz")
-                this.herramientas.hoz.rota = true;
-            }
-        }
+        this.inventario[semilla]--;
+        this.campo[index] = new Planta(semilla, this.dificultad, this.herramientas);
+        this.guardar();
 
         if (!this.herramientas.regadera.rota) {
             let numero = Math.random();
@@ -59,9 +45,6 @@ export default class Juego {
             }
         }
 
-        this.inventario[semilla]--;
-        this.campo[index] = new Planta(semilla, this.dificultad, this.herramientas);
-        this.guardar();
         return true;
     }
 
@@ -85,6 +68,24 @@ export default class Juego {
         if (this.dineroTotal > 100 && !this.logro) {
             this.logro = true;
             alert("Logro conseguido! Ve a la tienda para verlo");
+        }
+
+        if (!this.herramientas.azada.rota) {
+            let numero = Math.random();
+
+            if (numero < 0.1) {
+                alert("Se ha roto tu Azada")
+                this.herramientas.azada.rota = true;
+            }
+        }
+
+        if (!this.herramientas.hoz.rota) {
+            let numero = Math.random();
+
+            if (numero < 0.1) {
+                alert("Se ha roto tu Hoz")
+                this.herramientas.hoz.rota = true;
+            }
         }
 
         this.campo[index] = null;

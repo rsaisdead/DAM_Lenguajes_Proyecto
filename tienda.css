@@ -53,6 +53,23 @@ h3 {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
+#logro {
+    width: fit-content;
+    margin: auto;
+    margin-top: 1rem;
+    padding: 12px 20px;
+
+    background: rgba(138, 192, 21, 0.88);
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
 .contenedor-tienda {
     display: flex;
     justify-content: center;
